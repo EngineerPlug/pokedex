@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Pokedex</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/x-icon" href="magical-galar-ponyta.png"> 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+ </head>
+            <body>
+                <div class="search-bar-container">
+                    <h1>Enter a Poke Number</h1>
+                    <input id="searchBar" type="number" id="test">
+                    <br><br>
+                    <button id="searchButton" max="151">Search</button>
+                    <label id="pokedisplay"></label>
+                    
+                    <h1 id="pokeName"></h1>
+                    </div>
+                    
+                    
+                    
+                    <div id="spritesContainer"></div>
+                    
+                    <ul id="typeList"></ul>
+                    
+                    <ul id="moveList"></ul>
+                    
+                    <img src="" alt="">
+                    <script>
+                    const pokeHeader = document.getElementById('pokeName')
+                    const spritesContainer = document.getElementById('spritesContainer')
+                    
+                    const typeList = document.getElementById("typeList")
+                    const pokeId = document.getElementById("test");
+                    
+                    const searchButton = document.getElementById("searchButton");
+                    const moveList = document.getElementById("moveList");
+                    
+                    const button = document.getElementById("searchButton");
+                    const searchBar = document.getElementsById("searchBar");
+                    
+                    async function getPokemonInfo() {
+                    
+                    let httpresponse  = await fetch(`https://pokeapi.co/api/v2/pokemon/${test.value}`)
+                    console.log(httpresponse.status)
+                    
+                    if(httpresponse.status == 200) {
+                    
+                        spritesContainer.innerHTML =" "
+                        typeList.innerHTML = ""
+                        moveList.innerHTML =""
+                        
+                    
+                        var responseBody = await httpresponse.json()
+                        var pokeHeader = responseBody.name
+                        let h1 = document.getElementById("pokeName")
+                        h1.textContent = pokeHeader
+                        console.log(responseBody['abilities'][0])
+                       
+                        for(let key in responseBody.sprites){
+                            console.log(key)
+                          if(responseBody['sprites'][key] && key !== 'other' && key !== 'versions'){
+                            let img = document.createElement("img");
+                             img.src = responseBody['sprites'][key];
+                             img.alt = "image not found";
+                    
+                             
+                           
+                            spritesContainer.appendChild(img)
+                        
+                          }
+                        }
+                        for(let object of responseBody.types){
+                            console.log(object.type.name)
+                            let li = document.createElement("li");
+                            li.textContent = object.type.name;
+                            typeList.appendChild(li)
+                    
+                        }
+                        for(let object of responseBody.moves){
+                            console.log(object.move.name)
+                            let li = document.createElement("li");
+                            li.textContent = object.move.name;
+                            moveList.appendChild(li)
+                    
+                        }
+                    
+                    }else if(httpresponse['status'] == 400){
+                        console.log("error occured")
+                    }
+                    
+                        }
+                        searchButton.addEventListener("click",getPokemonInfo);
+                    </script>
+                    <footer>
+                        <span>Clark Web Constructed</span>
+                    </footer>
+               </body>
+            </html>

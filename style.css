@@ -1,0 +1,30 @@
+* {
+    font-family: 'PT Sans', sans-serif;
+    color: black;
+}
+
+body {
+    text-align: center;
+}
+
+.search-bar-container {
+    border: 1px solid black;
+    padding-left: 40px;
+    padding-right: 40px;
+    background: url("pokemon-picture.png");
+    background-size: auto;
+}
+
+button {
+    border: 2px solid #76D7C4;
+    border-radius: 3px;
+    background: #DAF7A6;
+    font-size: large;
+    text-transform: uppercase;
+    transition: all 300ms ease-out;
+}
+
+button:hover {
+    transform: scale(1.2);
+    box-shadow: 0 2px 0 2px;
+}

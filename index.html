@@ -10,90 +10,105 @@
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
  </head>
             <body>
+                <header></header>
                 <div class="search-bar-container">
                     <h1>Enter a Poke Number</h1>
-                    <input id="searchBar" type="number" id="test">
+                    <input type="number" id="pokeId">
                     <br><br>
                     <button id="searchButton" max="151">Search</button>
                     <label id="pokedisplay"></label>
                     
-                    <h1 id="pokeName"></h1>
+                    <h1 id="pokeName"></h1> <!--this is where the pokemon name is going to be placed-->
                     </div>
                     
                     
-                    
+                    <!--This div will store the pokemon images inside of it-->
                     <div id="spritesContainer"></div>
                     
-                    <ul id="typeList"></ul>
-                    
-                    <ul id="moveList"></ul>
-                    
-                    <img src="" alt="">
+                    <ul id="typeList"></ul> <!--In this unorder list we will store pokemon types inside of it-->
+                    <ul id="moveList"></ul><!--In this unordered list we will store pokemon moves inside of it-->
                     <script>
-                    const pokeHeader = document.getElementById('pokeName')
-                    const spritesContainer = document.getElementById('spritesContainer')
+                        /*
+                        to get a pokemons informatiom from the pokeAPI we will need to create a function that will make the
+                        http request for us when we click on the button in the html body
+
+                        to make this function work we are going to need to use the async and await keywords because when we 
+                        make our http request the function we are going to use will return a Promise object by default. The async 
+                        keyword will give our function that we are creating access to the await keyword. The await keyword can be used with 
+                        a promise to automatically resolve the promise when the expected information is received 
+                    */
+                    const pokeHeader = document.getElementById("pokeName"); // this references my header element above in the html file
+                    const spritesContainer = document.getElementById("spritesContainer");// this references the div above in the html file
                     
-                    const typeList = document.getElementById("typeList")
-                    const pokeId = document.getElementById("test");
+                    const typeList = document.getElementById("typeList");
+                    const pokeId = document.getElementById("pokeId");
                     
                     const searchButton = document.getElementById("searchButton");
                     const moveList = document.getElementById("moveList");
                     
-                    const button = document.getElementById("searchButton");
-                    const searchBar = document.getElementsById("searchBar");
-                    
                     async function getPokemonInfo() {
-                    
-                    let httpresponse  = await fetch(`https://pokeapi.co/api/v2/pokemon/${test.value}`)
-                    console.log(httpresponse.status)
-                    
-                    if(httpresponse.status == 200) {
-                    
-                        spritesContainer.innerHTML =" "
-                        typeList.innerHTML = ""
-                        moveList.innerHTML =""
-                        
-                    
-                        var responseBody = await httpresponse.json()
-                        var pokeHeader = responseBody.name
-                        let h1 = document.getElementById("pokeName")
-                        h1.textContent = pokeHeader
-                        console.log(responseBody['abilities'][0])
-                       
-                        for(let key in responseBody.sprites){
-                            console.log(key)
-                          if(responseBody['sprites'][key] && key !== 'other' && key !== 'versions'){
-                            let img = document.createElement("img");
-                             img.src = responseBody['sprites'][key];
-                             img.alt = "image not found";
-                    
-                             
-                           
-                            spritesContainer.appendChild(img)
-                        
-                          }
+                    // the fetch function lets you make http requests via your webpage
+                    let httpResponse  = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId.value}`);
+                    console.log(httpResponse); // if you see part of the response object, status: 200 then your request was made
+                    // now that we have access to the response, we need to parse out the JSON from the response
+                if(httpResponse.status === 200) {
+                        pokeHeader.textContent = "";
+                        spritesContainer.innerHTML = ""; // this will remove any previous images in the container
+                        typeList.innerHTML = "";
+                        moveList.innerHtml = "";
+                    // this line below converts the json stored in the response into a javascript object
+                    let responseBody = await httpResponse.json();
+                    console.log(responseBody);
+                    // since I know I have the pokemon info I am going to set the name value for the header above
+                    pokeHeader.textContent = responseBody.name;
+                    // now I am about to create a bunch of image elements and store them inside the div above
+                    // I am gonna need to loop through the sprites object
+                    for(let key in responseBody.sprites) {
+                        // before we add the new image elements we need to make sure there is an actual image to place
+                        if (responseBody.sprites[key] && key != "other" && key != "versions") {
+                     console.log(responseBody.sprites[key]); 
+                     let img = document.createElement("img");
+                     // assing the image to the element
+                     img.src = responseBody.sprites[key]; // to acces the keys of the nested objects you have to use square brackets
+                     // assign the alternate text
+                     img.alt= "image not found";
+                     // place the image inside of the div we created above
+                     spritesContainer.appendChild(img); // code will go here
                         }
-                        for(let object of responseBody.types){
-                            console.log(object.type.name)
-                            let li = document.createElement("li");
-                            li.textContent = object.type.name;
-                            typeList.appendChild(li)
-                    
-                        }
-                        for(let object of responseBody.moves){
-                            console.log(object.move.name)
-                            let li = document.createElement("li");
-                            li.textContent = object.move.name;
-                            moveList.appendChild(li)
-                    
-                        }
-                    
-                    }else if(httpresponse['status'] == 400){
-                        console.log("error occured")
                     }
+                    // now i am going to generate list item elements to fill the unordered list for the pokemon types
+                    /*
+                    to access the actual pokemon types we need to access some VERY nested information
+                    types is the key word to reference an array.
+                    the index positions of the array are references to objects, type is the key word that references the actual type that we want
                     
-                        }
-                        searchButton.addEventListener("click",getPokemonInfo);
+                    to handle this amount of nested information, we will loop through the array and reference the content
+                    we need from the objects we get access to in the array
+                    */
+                   for(let object of responseBody.types) {
+                    console.log(object.type.name);
+                    // now that we know how to actually access the types we can create list items and store their values in
+                    let li = document.createElement("li");
+                    // then we set the text content of the list item
+                    li.textContent = object.type.name;
+                    // then we append the list item inside of the type unordered list
+                    typeList.appendChild(li);
+                   }
+                   /* 
+                   and finally, we have the moves to work with: the names of the moves are stored in an array
+                   inside of an object, inside of another object, so we need to parse it out
+                   */
+                  for (let object of responseBody.moves) {
+                    console.log(object.move.name);
+                    let li = document.createElement("li");
+                    li.textContent = object.move.name;
+                    moveList.appendChild(li);
+                  }
+                   } else {
+                    console.log("it got away!");
+                   }
+                    }
+                     searchButton.addEventListener('click', getPokemonInfo);
                     </script>
                     <footer>
                         <span>Clark Web Constructed</span>

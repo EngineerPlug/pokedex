@@ -1,2 +1,3 @@
 # pokedex
-practice pokemon search build for revature engineering
+Practice pokemon search built by M. Clark.
+

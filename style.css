@@ -3,16 +3,43 @@
     color: black;
 }
 
+.container {
+    text-align: center;
+    justify-content: center;
+}
+
 body {
     text-align: center;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header {
+    background: url("pokemon-picture.png");
+    height: 40vh;
 }
 
 .search-bar-container {
-    border: 1px solid black;
+    background:cadetblue;
+    height: 40vh;
     padding-left: 40px;
     padding-right: 40px;
-    background: url("pokemon-picture.png");
     background-size: auto;
+}
+
+.reset-btn-div {
+    text-align: right;
+    justify-content: right;
+    position: relative;
+    left: 40px;
+    bottom: 1px;
+}
+
+#resetBtn {
+    color: red;
+    background: grey;
+    border: none;
 }
 
 #searchButton {
@@ -24,7 +51,31 @@ body {
     transition: all 300ms ease-out;
 }
 
-button:hover {
+#searchButton:hover {
     transform: scale(1.2);
     box-shadow: 0 2px 0 2px;
+}
+
+#typeList {
+    background: #76D7C4;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+#pokeName {
+    text-transform: uppercase;
+}
+
+#pokename {
+    background: #DAF7A6;
+}
+
+#typeList li {
+    padding: 5px;
+    text-transform: uppercase;
+}
+
+li {
+    list-style: none;
 }

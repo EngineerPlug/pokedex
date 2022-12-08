@@ -1,6 +1,9 @@
 * {
     font-family: 'PT Sans', sans-serif;
-    color: black;
+}
+
+html {
+    overflow-x: hidden;
 }
 
 .container {
@@ -8,74 +11,135 @@
     justify-content: center;
 }
 
+#services {
+    position: relative;
+    bottom: 10px;
+}
+
 body {
     text-align: center;
-    max-width: 620px;
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: auto;
+}
+
+.header-msg {
+    color: white;
+    text-align: right;
+    position: relative;
+    top: 365px;
+    padding-right: 10px;
+}
+
+.arrows {
+    width: 150px;
+    position: relative;
+    left: 370px;
+    bottom: 200px;
+}
+
+p {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+ul {
+    list-style: none;
 }
 
 header {
-    background: url("pokemon-picture.png");
+    background: url("images/Untitled design (66).png");
+    background-size: cover;
     height: 40vh;
-}
-
-.search-bar-container {
-    background:cadetblue;
-    height: 40vh;
-    padding-left: 40px;
-    padding-right: 40px;
-    background-size: auto;
-}
-
-.reset-btn-div {
-    text-align: right;
-    justify-content: right;
+    border-bottom: 40px solid teal;
     position: relative;
-    left: 40px;
-    bottom: 1px;
+    bottom: 30px;
 }
 
-#resetBtn {
-    color: red;
-    background: grey;
-    border: none;
+.title-div {
+    position: relative;
+    bottom: 20px;
 }
 
-#searchButton {
-    border: 2px solid #76D7C4;
-    border-radius: 3px;
-    background: #DAF7A6;
-    font-size: large;
-    text-transform: uppercase;
-    transition: all 300ms ease-out;
+.main-div {
+    color: white;
+    background: teal;
+    position: relative;
+    top: 70px;
 }
 
-#searchButton:hover {
-    transform: scale(1.2);
-    box-shadow: 0 2px 0 2px;
-}
-
-#typeList {
-    background: cadetblue;
+main {
     display: flex;
-    text-align: center;
-    justify-content: center;
+    flex-direction: column;
 }
 
-#pokeName {
+.section-one {
+    width: 40%;
+    background: rgba(8, 95, 209, 0.799);
+    position: relative;
+    left: 10px;
+}
+
+.section-two {
+    width: 40%;
+    position: relative;
+    left: 530px;
+    bottom: 559px;
+    background: rgba(8, 95, 209, 0.799);
+}
+
+.img-div {
+    width: 100%;
+    text-align: left;
+    position: relative;
+    top: 220px;
+    left: 10px;
+}
+
+img {
+    border-radius: 100%;
+    height: 200px;
+    width: 30%;
+    border: 10px solid teal;
+}
+
+.section-two-img {
+    height: 200px;
+    width: 100%;
+    border: none;
+    border-radius: 1px;
+}
+
+.form {
+    display: grid;
+}
+
+input {
+    border: none;
+    border-bottom: 1px solid teal;
+}
+
+#submit {
+    background: teal;
     text-transform: uppercase;
+    color: white;
+    border: none;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
-#pokename {
-    background: #DAF7A6;
+.footer-div {
+    color: white;
 }
 
-#typeList li {
-    padding: 5px;
-    text-transform: uppercase;
+footer a {
+    color: white;
+    text-decoration: none;
 }
 
-li {
-    list-style: none;
+footer {
+    background: black;
+    height: 20vh;
+    color: white;
 }

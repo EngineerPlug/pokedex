@@ -16,7 +16,7 @@ body {
 }
 
 header {
-    background: url("pokemon-picture.png");
+    background: url("/images/pokemon-picture.png");
     height: 40vh;
 }
 
